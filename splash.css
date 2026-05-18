@@ -51,14 +51,7 @@
   pointer-events: all;
 }
 
-.signin-box {
-  background: rgba(100,100,100,0.35);
-  border: 1px solid rgba(255,255,255,0.3);
-  border-radius: 18px;
-  padding: 36px 36px 32px;
-  backdrop-filter: blur(16px);
-  box-shadow: 0 8px 40px rgba(0,0,0,0.10);
-}
+
 
 .signin-logo {
   color: #fff !important;
@@ -223,12 +216,7 @@
 @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
 /* FORCE grey transparent box */
-.signin-box {
-  background: rgba(80,80,80,0.38) !important;
-  border: 1px solid rgba(255,255,255,0.22) !important;
-  backdrop-filter: blur(18px) !important;
-  -webkit-backdrop-filter: blur(18px) !important;
-}
+
 
 .signin-logo,
 .signin-tagline { color: #fff !important; }
@@ -260,28 +248,24 @@
 .role-option.selected .role-opt-label { color: #1a1410 !important; }
 .role-option.selected .role-opt-sub   { color: #5a5048 !important; }
 
-.signin-box {
-  background: rgba(60,60,60,0.55) !important;
-  backdrop-filter: blur(20px) !important;
-  -webkit-backdrop-filter: blur(20px) !important;
-  border: 1px solid rgba(255,255,255,0.18) !important;
-}
 
-#video-dim {
-  position: absolute;
-  inset: 0;
-  background: rgba(0,0,0,0.45);
-  z-index: 5;
-  pointer-events: none;
-}
+
 
 #signin-panel {
   z-index: 10;
 }
 
+
+
+#video-dim { display: none !important; }
+
 .signin-box {
-  background: rgba(50,50,50,0.75) !important;
+  background: rgba(220,215,205,0.75) !important;
   backdrop-filter: none !important;
   -webkit-backdrop-filter: none !important;
-  border: 1px solid rgba(255,255,255,0.15) !important;
+  border: 1px solid rgba(255,255,255,0.4) !important;
 }
+
+.signin-label { color: #3a3028 !important; }
+.signin-tagline { color: #5a5048 !important; }
+.signin-btn { background: #1a1410 !important; color: #f0ebe0 !important; }
