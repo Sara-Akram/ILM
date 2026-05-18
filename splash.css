@@ -81,3 +81,14 @@
 @media (prefers-reduced-motion: reduce) {
   #splash-logo, .skip-btn { animation: none; opacity: 1; }
 }
+
+/* hide watermark bottom right */
+#watermark-cover {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 220px;
+  height: 60px;
+  background: #d8d2c8;
+  z-index: 5;
+}
