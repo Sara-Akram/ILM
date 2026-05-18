@@ -259,3 +259,10 @@
 .role-option.selected .role-opt-icon svg { stroke: #1a1410 !important; }
 .role-option.selected .role-opt-label { color: #1a1410 !important; }
 .role-option.selected .role-opt-sub   { color: #5a5048 !important; }
+
+.signin-box {
+  background: rgba(60,60,60,0.55) !important;
+  backdrop-filter: blur(20px) !important;
+  -webkit-backdrop-filter: blur(20px) !important;
+  border: 1px solid rgba(255,255,255,0.18) !important;
+}
