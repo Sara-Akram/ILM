@@ -53,9 +53,11 @@
 }
 
 .skip-btn {
+  font-size: 15px;
+  padding: 12px 28px;
   position: absolute;
-  bottom: 28px;
-  right: 28px;
+  bottom: 16px;
+  right: 16px;
   font-family: 'DM Sans', sans-serif;
   font-size: 12px;
   color: #6b5f50;
@@ -79,16 +81,8 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  #splash-logo, .skip-btn { animation: none; opacity: 1; }
+  #splash-logo, .skip-btn {
+  font-size: 15px;
+  padding: 12px 28px; animation: none; opacity: 1; }
 }
 
-/* hide watermark bottom right */
-#watermark-cover {
-  position: absolute;
-  bottom: 0;
-  right: 0;
-  width: 220px;
-  height: 60px;
-  background: #d8d2c8;
-  z-index: 5;
-}
