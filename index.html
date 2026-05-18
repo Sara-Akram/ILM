@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ILM — Online Tutoring Platform</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/main.css" />
+  <link rel="stylesheet" href="css/splash.css" />
+</head>
+<body>
+
+  <!-- ░░░ SPLASH SCREEN ░░░ -->
+  <div id="splash">
+    <div id="splash-inner">
+
+      <svg id="ilm-svg" viewBox="0 0 520 180" xmlns="http://www.w3.org/2000/svg" aria-label="ILM">
+
+        <!-- ruled paper lines -->
+        <line class="paper-line" x1="20" y1="42"  x2="498" y2="38"  stroke-width="0.8"/>
+        <line class="paper-line" x1="18" y1="90"  x2="502" y2="88"  stroke-width="0.6"/>
+        <line class="paper-line" x1="22" y1="138" x2="500" y2="135" stroke-width="0.7"/>
+        <line class="paper-line" x1="20" y1="170" x2="499" y2="168" stroke-width="0.5"/>
+
+        <!-- ── I ── vertical + serifs -->
+        <line id="s-I"   class="charcoal" x1="68" y1="28" x2="68" y2="152" />
+        <line id="s-It"  class="charcoal serif-stroke" x1="42" y1="28"  x2="94" y2="28"  />
+        <line id="s-Ib"  class="charcoal serif-stroke" x1="42" y1="152" x2="94" y2="152" />
+        <ellipse class="smudge smudge-1" cx="68"  cy="152" rx="22" ry="5" />
+
+        <!-- ── L ── vertical + base -->
+        <line id="s-Lv"  class="charcoal" x1="160" y1="28"  x2="160" y2="152" />
+        <line id="s-Lh"  class="charcoal" x1="160" y1="152" x2="260" y2="152" />
+        <ellipse class="smudge smudge-2" cx="160" cy="152" rx="16" ry="6"  />
+
+        <!-- ── M ── left post, left diagonal, right diagonal, right post -->
+        <line id="s-Ml"  class="charcoal" x1="310" y1="28"  x2="310" y2="152" />
+        <line id="s-Mld" class="charcoal" x1="310" y1="28"  x2="374" y2="104" />
+        <line id="s-Mrd" class="charcoal" x1="374" y1="104" x2="438" y2="28"  />
+        <line id="s-Mr"  class="charcoal" x1="438" y1="28"  x2="438" y2="152" />
+        <ellipse class="smudge smudge-3" cx="374" cy="106" rx="10" ry="4"  />
+
+      </svg>
+
+      <p class="splash-meaning">علم &nbsp;·&nbsp; knowledge &nbsp;·&nbsp; education</p>
+    </div>
+
+    <button class="skip-btn" onclick="ILM.showApp()">Skip intro</button>
+  </div>
+
+  <!-- ░░░ APP SHELL ░░░ -->
+  <div id="app" aria-hidden="true">
+
+    <!-- NAV -->
+    <header id="main-nav">
+      <div class="logo">IL<span>M</span></div>
+      <nav class="nav-tabs" role="navigation" aria-label="Main">
+        <button class="nav-tab active" data-page="dashboard">Dashboard</button>
+        <button class="nav-tab" data-page="sessions">Sessions</button>
+        <button class="nav-tab" data-page="students">Students</button>
+        <button class="nav-tab" data-page="earnings">Earnings</button>
+      </nav>
+      <div class="nav-user">
+        <span class="nav-username">Sara A.</span>
+        <div class="avatar" aria-label="User avatar">SA</div>
+      </div>
+    </header>
+
+    <!-- BODY: sidebar + content -->
+    <div class="app-body">
+
+      <aside class="sidebar" aria-label="Sidebar">
+        <nav>
+          <button class="sidebar-item active" data-page="dashboard">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+            Overview
+          </button>
+          <button class="sidebar-item" data-page="sessions">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="17" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+            Schedule
+          </button>
+          <button class="sidebar-item" data-page="students">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+            Students
+          </button>
+          <div class="sidebar-label">Tools</div>
+          <button class="sidebar-item" data-page="whiteboard">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="13" rx="2"/><path d="M8 21h8M12 16v5"/></svg>
+            Whiteboard
+          </button>
+          <button class="sidebar-item" data-page="messages">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+            Messages
+          </button>
+          <div class="sidebar-label">Account</div>
+          <button class="sidebar-item" data-page="earnings">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z"/><path d="M12 6v6l4 2"/></svg>
+            Earnings
+          </button>
+          <button class="sidebar-item" data-page="settings">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+            Settings
+          </button>
+        </nav>
+      </aside>
+
+      <!-- PAGE CONTENT inserted by JS -->
+      <main id="page-content" class="main-content" role="main"></main>
+
+    </div>
+  </div>
+
+  <script src="js/pages.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
