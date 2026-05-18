@@ -67,6 +67,8 @@ const ILM = (() => {
   /* ── Show sign in after video ── */
   function showSignIn() {
     if (signinPanel) signinPanel.classList.add('visible');
+    const vid = document.getElementById('splash-video');
+    if (vid) vid.pause();
   }
 
   /* ── Navigate ── */
