@@ -1,5 +1,5 @@
 /* ============================================================
-   ILM — Splash + Sign In
+   iLM — Splash Screen (clean rewrite)
    ============================================================ */
 
 #splash {
@@ -34,15 +34,15 @@
   pointer-events: none;
 }
 
-/* ── Sign in panel ── */
 #signin-panel {
   position: relative;
   z-index: 10;
+  width: 380px;
+  max-width: calc(100vw - 48px);
   opacity: 0;
   transform: translateY(20px);
   transition: opacity 0.8s ease, transform 0.8s ease;
   pointer-events: none;
-  width: min(420px, 90vw);
 }
 
 #signin-panel.visible {
@@ -51,120 +51,71 @@
   pointer-events: all;
 }
 
-
+.signin-box {
+  width: 100%;
+  background: rgba(195,192,186,0.78);
+  border: 1px solid rgba(255,255,255,0.45);
+  border-radius: 18px;
+  padding: 36px 32px 32px;
+  box-sizing: border-box;
+}
 
 .signin-logo {
-  color: #fff !important;
-  font-family: 'Playfair Display', serif;
-  font-size: 32px;
-  font-weight: 900;
-  color: #fff;
+  font-family: Helvetica, Arial, sans-serif;
+  font-size: 52px;
+  font-weight: 700;
+  color: #1a1410;
   text-align: center;
-  margin-bottom: 6px;
-  letter-spacing: -0.5px;
+  margin-bottom: 4px;
+  letter-spacing: 5px;
 }
 
 .signin-tagline {
-  font-size: 12.5px;
-  color: #7a6e60;
+  font-family: Helvetica, Arial, sans-serif;
+  font-size: 13px;
+  color: #4a4038;
   text-align: center;
-  margin-bottom: 28px;
+  margin-bottom: 24px;
 }
 
 .signin-label {
+  display: block;
+  font-family: Helvetica, Arial, sans-serif;
   font-size: 11px;
   font-weight: 500;
   letter-spacing: 0.8px;
   text-transform: uppercase;
-  color: #7a6e60;
+  color: #4a4038;
   margin-bottom: 6px;
-  display: block;
 }
 
 .signin-input {
   width: 100%;
-  font-family: 'DM Sans', sans-serif;
+  font-family: Helvetica, Arial, sans-serif;
   font-size: 14px;
   color: #1a1410;
-  background: rgba(255,255,255,0.25);
-  border: 1px solid rgba(26,20,16,0.16);
+  background: rgba(255,255,255,0.65);
+  border: 1px solid rgba(26,20,16,0.2);
   border-radius: 8px;
   padding: 11px 14px;
   outline: none;
-  transition: border-color 0.15s, background 0.15s;
   margin-bottom: 16px;
+  box-sizing: border-box;
+  transition: background 0.15s, border-color 0.15s;
 }
+
 .signin-input:focus {
-  border-color: #1a1410;
-  background: rgba(255,255,255,0.45);
+  background: rgba(255,255,255,0.9);
+  border-color: rgba(26,20,16,0.4);
 }
 
-/* Role selector */
-.role-selector {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 8px;
-  margin-bottom: 22px;
-}
-
-.role-option {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 6px;
-  padding: 12px 8px;
-  border-radius: 10px;
-  border: 1.5px solid rgba(26,20,16,0.12);
-  background: rgba(255,255,255,0.5);
-  cursor: pointer;
-  transition: border-color 0.15s, background 0.15s;
-  font-family: 'DM Sans', sans-serif;
-}
-
-.role-option:hover {
-  background: rgba(255,255,255,0.85);
-  border-color: rgba(26,20,16,0.25);
-}
-
-.role-option.selected {
-  background: #1a1410;
-  border-color: #1a1410;
-}
-
-.role-option.selected .role-opt-icon svg { stroke: #f0ebe0; }
-.role-option.selected .role-opt-label { color: #f0ebe0; }
-.role-option.selected .role-opt-sub { color: rgba(240,235,224,0.6); }
-
-.role-opt-icon {
-  width: 34px; height: 34px;
-  display: flex; align-items: center; justify-content: center;
-}
-.role-opt-icon svg {
-  width: 20px; height: 20px;
-  stroke: #1a1410;
-  fill: none;
-  stroke-width: 1.8;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-}
-
-.role-opt-label {
-  font-size: 12px;
-  font-weight: 500;
-  color: #1a1410;
-  text-align: center;
-}
-
-.role-opt-sub {
-  font-size: 10px;
-  color: #7a6e60;
-  text-align: center;
-  line-height: 1.3;
+.signin-input::placeholder {
+  color: rgba(26,20,16,0.35);
 }
 
 .signin-btn {
   width: 100%;
-  font-family: 'DM Sans', sans-serif;
+  font-family: Helvetica, Arial, sans-serif;
   font-size: 14px;
   font-weight: 500;
   color: #f0ebe0;
@@ -174,30 +125,16 @@
   padding: 13px;
   cursor: pointer;
   transition: opacity 0.15s;
-  letter-spacing: 0.3px;
+  box-sizing: border-box;
 }
+
 .signin-btn:hover { opacity: 0.82; }
 
-.signin-divider {
-  text-align: center;
-  font-size: 11.5px;
-  color: #7a6e60;
-  margin: 14px 0 0;
-}
-
-.signin-divider a {
-  color: #1a1410;
-  font-weight: 500;
-  cursor: pointer;
-  text-decoration: underline;
-}
-
-/* Skip button covers Kling watermark */
 .skip-btn {
   position: absolute;
   bottom: 16px;
   right: 16px;
-  font-family: 'DM Sans', sans-serif;
+  font-family: Helvetica, Arial, sans-serif;
   font-size: 15px;
   color: #6b5f50;
   background: rgba(232,226,216,0.88);
@@ -207,102 +144,10 @@
   cursor: pointer;
   transition: background 0.2s;
   z-index: 20;
-  backdrop-filter: blur(6px);
   opacity: 0;
   animation: fadeIn 0.8s ease 0.5s both;
 }
+
 .skip-btn:hover { background: rgba(210,200,185,0.95); }
 
 @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-
-/* FORCE grey transparent box */
-
-
-.signin-logo,
-.signin-tagline { color: #fff !important; }
-
-.signin-label { color: rgba(255,255,255,0.75) !important; }
-
-.signin-input {
-  background: rgba(255,255,255,0.18) !important;
-  border-color: rgba(255,255,255,0.25) !important;
-  color: #fff !important;
-}
-.signin-input::placeholder { color: rgba(255,255,255,0.45) !important; }
-.signin-input:focus { background: rgba(255,255,255,0.28) !important; border-color: rgba(255,255,255,0.5) !important; }
-
-.role-option {
-  background: rgba(255,255,255,0.12) !important;
-  border-color: rgba(255,255,255,0.2) !important;
-}
-.role-option:hover { background: rgba(255,255,255,0.22) !important; }
-.role-opt-label { color: #fff !important; }
-.role-opt-sub   { color: rgba(255,255,255,0.6) !important; }
-.role-opt-icon svg { stroke: #fff !important; }
-
-.role-option.selected {
-  background: rgba(255,255,255,0.9) !important;
-  border-color: #fff !important;
-}
-.role-option.selected .role-opt-icon svg { stroke: #1a1410 !important; }
-.role-option.selected .role-opt-label { color: #1a1410 !important; }
-.role-option.selected .role-opt-sub   { color: #5a5048 !important; }
-
-
-
-
-#signin-panel {
-  z-index: 10;
-}
-
-
-
-#video-dim { display: none !important; }
-
-.signin-box {
-  background: rgba(220,215,205,0.75) !important;
-  backdrop-filter: none !important;
-  -webkit-backdrop-filter: none !important;
-  border: 1px solid rgba(255,255,255,0.4) !important;
-}
-
-.signin-label { color: #3a3028 !important; }
-.signin-tagline { color: #5a5048 !important; }
-.signin-btn { background: #1a1410 !important; color: #f0ebe0 !important; }
-
-#signin-panel {
-  width: min(400px, 88vw) !important;
-  padding: 0 !important;
-}
-
-.signin-box {
-  border-radius: 18px !important;
-  padding: 36px 32px 32px !important;
-  background: rgba(220,215,205,0.82) !important;
-  border: 1px solid rgba(255,255,255,0.4) !important;
-  backdrop-filter: none !important;
-  width: 100% !important;
-  box-sizing: border-box !important;
-}
-
-.signin-box {
-  background: rgba(60,58,55,0.82) !important;
-  border: 1px solid rgba(255,255,255,0.15) !important;
-}
-
-.signin-tagline, .signin-label { color: rgba(255,255,255,0.7) !important; }
-.signin-input { background: rgba(255,255,255,0.12) !important; border-color: rgba(255,255,255,0.2) !important; color: #fff !important; }
-.signin-input::placeholder { color: rgba(255,255,255,0.35) !important; }
-.signin-input:focus { background: rgba(255,255,255,0.2) !important; }
-.signin-btn { background: #fff !important; color: #1a1410 !important; }
-
-.signin-box {
-  background: rgba(210,208,204,0.88) !important;
-  border: 1px solid rgba(255,255,255,0.5) !important;
-}
-.signin-tagline { color: #5a5048 !important; }
-.signin-label { color: #6a6058 !important; }
-.signin-input { background: rgba(255,255,255,0.6) !important; border-color: rgba(26,20,16,0.18) !important; color: #1a1410 !important; }
-.signin-input::placeholder { color: rgba(26,20,16,0.35) !important; }
-.signin-input:focus { background: rgba(255,255,255,0.85) !important; }
-.signin-btn { background: #1a1410 !important; color: #f0ebe0 !important; }
