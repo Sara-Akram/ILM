@@ -52,11 +52,11 @@
 }
 
 .signin-box {
-  background: rgba(244,239,229,0.96);
+  background: rgba(244,239,229,0.72);
   border: 1px solid rgba(26,20,16,0.14);
   border-radius: 18px;
   padding: 36px 36px 32px;
-  backdrop-filter: blur(12px);
+  backdrop-filter: blur(16px);
   box-shadow: 0 8px 40px rgba(0,0,0,0.12);
 }
 
