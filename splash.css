@@ -1,5 +1,5 @@
 /* ============================================================
-   ILM — Splash Screen: Video + Paper Dashboard Theme
+   ILM — Splash Screen
    ============================================================ */
 
 #splash {
@@ -31,58 +31,127 @@
 #splash-overlay {
   position: absolute;
   inset: 0;
-  background: rgba(232, 226, 216, 0.12);
+  background: rgba(232,226,216,0.08);
   pointer-events: none;
 }
 
-#splash-logo {
+/* Login panel — hidden until video ends */
+#splash-login {
   position: relative;
-  z-index: 2;
-  font-family: 'Playfair Display', serif;
-  font-size: clamp(72px, 14vw, 140px);
-  font-weight: 900;
-  color: #1a1410;
-  letter-spacing: -2px;
-  line-height: 1;
-  text-align: center;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
   opacity: 0;
-  animation: logoFadeIn 0.8s ease 0.6s both;
-  text-shadow:
-    1px 2px 4px rgba(0,0,0,0.18),
-    0 1px 2px rgba(0,0,0,0.1);
+  transform: translateY(16px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+  pointer-events: none;
 }
 
+#splash-login.visible {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: all;
+}
+
+#splash-login h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: 28px;
+  font-weight: 700;
+  color: #1a1410;
+  letter-spacing: -0.5px;
+  text-align: center;
+  text-shadow: 0 1px 3px rgba(255,255,255,0.5);
+}
+
+#splash-login p {
+  font-size: 13px;
+  color: #5a5048;
+  text-align: center;
+  margin-top: -12px;
+}
+
+.role-cards {
+  display: flex;
+  gap: 14px;
+}
+
+.role-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  background: rgba(240,235,225,0.92);
+  border: 1px solid rgba(26,20,16,0.15);
+  border-radius: 14px;
+  padding: 22px 28px;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.15s, border-color 0.2s;
+  backdrop-filter: blur(8px);
+  min-width: 130px;
+  font-family: 'DM Sans', sans-serif;
+}
+
+.role-card:hover {
+  background: rgba(255,252,245,0.97);
+  border-color: rgba(26,20,16,0.3);
+  transform: translateY(-2px);
+}
+
+.role-icon {
+  width: 44px; height: 44px;
+  background: #1a1410;
+  border-radius: 12px;
+  display: flex; align-items: center; justify-content: center;
+}
+
+.role-icon svg {
+  width: 22px; height: 22px;
+  stroke: #f0ebe0;
+  fill: none;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.role-label {
+  font-size: 13.5px;
+  font-weight: 500;
+  color: #1a1410;
+}
+
+.role-sub {
+  font-size: 11px;
+  color: #7a6e60;
+  text-align: center;
+  line-height: 1.4;
+}
+
+/* Skip button covers Kling watermark */
 .skip-btn {
-  font-size: 15px;
-  padding: 12px 28px;
   position: absolute;
   bottom: 16px;
   right: 16px;
   font-family: 'DM Sans', sans-serif;
-  font-size: 12px;
+  font-size: 15px;
   color: #6b5f50;
-  background: rgba(232,226,216,0.6);
+  background: rgba(232,226,216,0.88);
   border: 1px solid rgba(140,115,80,0.3);
-  padding: 8px 18px;
+  padding: 12px 28px;
   border-radius: 100px;
   cursor: pointer;
-  letter-spacing: 0.5px;
   transition: background 0.2s;
   opacity: 0;
-  animation: logoFadeIn 0.8s ease 1.2s both;
+  animation: fadeIn 0.8s ease 0.5s both;
   z-index: 10;
   backdrop-filter: blur(6px);
 }
-.skip-btn:hover { background: rgba(200,190,175,0.8); }
+.skip-btn:hover { background: rgba(210,200,185,0.95); }
 
-@keyframes logoFadeIn {
-  from { opacity: 0; transform: translateY(8px); }
-  to   { opacity: 1; transform: translateY(0); }
+@keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
+
+@media (max-width: 600px) {
+  .role-cards { flex-direction: column; }
+  .role-card { min-width: 200px; }
 }
-
-@media (prefers-reduced-motion: reduce) {
-  #splash-logo, .skip-btn {
-  font-size: 15px;
-  padding: 12px 28px; animation: none; opacity: 1; }
-}
-
