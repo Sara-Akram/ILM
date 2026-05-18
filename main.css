@@ -69,7 +69,7 @@ svg { fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round
 
 .logo {
   font-family: var(--font);
-  font-size: 28px;
+  font-size: 38px;
   font-weight: 700;
   letter-spacing: 2px;
   color: var(--ink);
@@ -141,7 +141,20 @@ svg { fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round
 
 /* ── Stat cards ── */
 .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 20px; }
-.stat-card { background: var(--glass); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border: 1px solid var(--border-mid); border-radius: var(--radius-lg); padding: 18px 20px; }
+.stat-card {
+  background: rgba(240,235,224,0.55);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255,255,255,0.6);
+  border-radius: var(--radius-lg);
+  padding: 18px 20px;
+  box-shadow: 0 4px 24px rgba(26,20,16,0.07);
+  transition: transform 0.15s, box-shadow 0.15s;
+}
+.stat-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 32px rgba(26,20,16,0.10);
+}
 .stat-card-label { font-size: 10px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 8px; font-weight: 500; font-family: var(--font); }
 .stat-card-value { font-family: var(--font); font-size: 28px; font-weight: 700; line-height: 1; color: var(--ink); margin-bottom: 5px; }
 .stat-card-value span { font-size: 16px; }

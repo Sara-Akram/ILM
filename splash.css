@@ -53,8 +53,8 @@
 
 .signin-box {
   width: 100%;
-  background: rgba(195,192,186,0.78);
-  border: 1px solid rgba(255,255,255,0.45);
+  background: rgba(195,192,186,0.45);
+  border: 1px solid rgba(255,255,255,0.35);
   border-radius: 18px;
   padding: 36px 32px 32px;
   box-sizing: border-box;
@@ -62,7 +62,7 @@
 
 .signin-logo {
   font-family: Helvetica, Arial, sans-serif;
-  font-size: 52px;
+  font-size: 48px;
   font-weight: 700;
   color: #1a1410;
   text-align: center;
@@ -94,7 +94,7 @@
   font-family: Helvetica, Arial, sans-serif;
   font-size: 14px;
   color: #1a1410;
-  background: rgba(255,255,255,0.65);
+  background: rgba(255,255,255,0.55);
   border: 1px solid rgba(26,20,16,0.2);
   border-radius: 8px;
   padding: 11px 14px;

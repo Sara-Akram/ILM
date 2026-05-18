@@ -244,57 +244,73 @@ window.ILM_PAGES = {
         <div class="classroom-header">
           <div>
             <div class="classroom-title">Biology · Grade 10 — Emma Thompson</div>
-            <div class="classroom-time" id="session-timer">Session time: 00:00</div>
+            <div class="classroom-time" id="session-timer">00:00</div>
           </div>
           <div style="display:flex;gap:8px;align-items:center;">
-            <button class="btn btn-outline btn-sm" style="color:#e8e0d0;border-color:rgba(255,255,255,0.2);" onclick="toggleVideoCall()">
-              <svg viewBox="0 0 24 24" style="width:13px;height:13px;stroke:#e8e0d0"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg>
-              Video Call
+            <button class="wb-btn" id="btn-video" onclick="toggleVideoCall()" title="Video Call" style="width:auto;padding:0 12px;gap:6px;color:#e8e0d0;border-color:rgba(255,255,255,0.2);">
+              <svg viewBox="0 0 24 24" style="width:14px;height:14px;stroke:#e8e0d0"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg>
+              <span style="font-size:12px;">Video</span>
             </button>
-            <button class="btn btn-outline btn-sm" style="color:#e8e0d0;border-color:rgba(255,255,255,0.2);" onclick="togglePdfOverlay()">
-              <svg viewBox="0 0 24 24" style="width:13px;height:13px;stroke:#e8e0d0"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
-              PDF
+            <button class="wb-btn" id="btn-pdf" onclick="togglePdfOverlay()" title="Upload PDF" style="width:auto;padding:0 12px;gap:6px;color:#e8e0d0;border-color:rgba(255,255,255,0.2);">
+              <svg viewBox="0 0 24 24" style="width:14px;height:14px;stroke:#e8e0d0"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+              <span style="font-size:12px;">PDF</span>
             </button>
-            <button class="btn btn-outline btn-sm" style="color:#e8e0d0;border-color:rgba(255,255,255,0.2);" onclick="toggleFullscreen()">
-              <svg viewBox="0 0 24 24" style="width:13px;height:13px;stroke:#e8e0d0"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/></svg>
-              Fullscreen
+            <button class="wb-btn" onclick="toggleFullscreen()" title="Fullscreen" style="width:auto;padding:0 12px;gap:6px;color:#e8e0d0;border-color:rgba(255,255,255,0.2);">
+              <svg viewBox="0 0 24 24" style="width:14px;height:14px;stroke:#e8e0d0"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/></svg>
+              <span style="font-size:12px;">Fullscreen</span>
             </button>
-            <button class="btn btn-danger btn-sm" onclick="ILM.navigate('sessions')">End Session</button>
+            <button style="background:#8b2a2a;color:#fff;border:none;padding:8px 14px;border-radius:6px;font-size:12px;font-family:Helvetica,sans-serif;cursor:pointer;" onclick="ILM.navigate('sessions')">End Session</button>
           </div>
         </div>
 
-        <!-- Whiteboard -->
+        <!-- Whiteboard + video -->
         <div class="classroom-main">
-          <div id="pdf-overlay" style="position:absolute;inset:44px 0 0 0;pointer-events:none;display:none;z-index:2;">
-            <img id="pdf-img" src="" style="max-height:100%;max-width:100%;object-fit:contain;opacity:0.35;display:block;margin:auto;">
+
+          <!-- PDF layer -->
+          <div id="pdf-overlay" style="position:absolute;inset:44px 0 0 0;pointer-events:none;display:none;z-index:2;align-items:center;justify-content:center;">
+            <img id="pdf-img" src="" style="max-height:100%;max-width:100%;object-fit:contain;opacity:0.38;display:block;margin:auto;">
           </div>
 
-          <!-- Video call grid overlay -->
-          <div class="video-grid" id="video-grid">
-            <div class="video-stream" id="local-stream">
-              <div class="video-stream-avatar">SA</div>
-              <div class="video-stream-label">You</div>
+          <!-- Video grid overlay -->
+          <div id="video-grid" style="position:absolute;inset:44px 0 0 0;display:none;grid-template-columns:1fr 1fr;gap:3px;padding:3px;background:#0f0c09;z-index:20;">
+            <div id="local-stream" style="border-radius:8px;background:#1a1410;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;min-height:120px;">
+              <div id="local-avatar" style="display:flex;flex-direction:column;align-items:center;gap:6px;">
+                <div style="width:48px;height:48px;border-radius:50%;background:#3a3028;display:flex;align-items:center;justify-content:center;font-size:16px;color:#e8e0d0;font-family:Helvetica;">SA</div>
+                <span style="font-size:11px;color:rgba(232,224,208,0.6);font-family:Helvetica;">You</span>
+              </div>
+              <video id="my-video" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:none;" autoplay muted playsinline></video>
+              <div style="position:absolute;bottom:6px;left:8px;font-size:10px;color:#fff;background:rgba(0,0,0,0.5);padding:2px 7px;border-radius:4px;font-family:Helvetica;">You</div>
             </div>
-            <div class="video-stream">
-              <div class="video-stream-avatar">ET</div>
-              <div class="video-stream-label">Emma Thompson</div>
+            <div style="border-radius:8px;background:#1a1410;display:flex;align-items:center;justify-content:center;position:relative;min-height:120px;">
+              <div style="display:flex;flex-direction:column;align-items:center;gap:6px;">
+                <div style="width:48px;height:48px;border-radius:50%;background:#3a3028;display:flex;align-items:center;justify-content:center;font-size:16px;color:#e8e0d0;font-family:Helvetica;">ET</div>
+                <span style="font-size:11px;color:rgba(232,224,208,0.6);font-family:Helvetica;">Emma</span>
+              </div>
+              <div style="position:absolute;bottom:6px;left:8px;font-size:10px;color:#fff;background:rgba(0,0,0,0.5);padding:2px 7px;border-radius:4px;font-family:Helvetica;">Emma Thompson</div>
             </div>
-            <div class="video-stream">
-              <div class="video-stream-avatar">LB</div>
-              <div class="video-stream-label">Lucas Bennett</div>
+            <div style="border-radius:8px;background:#1a1410;display:flex;align-items:center;justify-content:center;position:relative;min-height:120px;">
+              <div style="display:flex;flex-direction:column;align-items:center;gap:6px;">
+                <div style="width:48px;height:48px;border-radius:50%;background:#3a3028;display:flex;align-items:center;justify-content:center;font-size:16px;color:#e8e0d0;font-family:Helvetica;">LB</div>
+                <span style="font-size:11px;color:rgba(232,224,208,0.6);font-family:Helvetica;">Lucas</span>
+              </div>
+              <div style="position:absolute;bottom:6px;left:8px;font-size:10px;color:#fff;background:rgba(0,0,0,0.5);padding:2px 7px;border-radius:4px;font-family:Helvetica;">Lucas Bennett</div>
             </div>
-            <div class="video-stream">
-              <div class="video-stream-avatar">SM</div>
-              <div class="video-stream-label">Sophie Miller</div>
+            <div style="border-radius:8px;background:#1a1410;display:flex;align-items:center;justify-content:center;position:relative;min-height:120px;">
+              <div style="display:flex;flex-direction:column;align-items:center;gap:6px;">
+                <div style="width:48px;height:48px;border-radius:50%;background:#3a3028;display:flex;align-items:center;justify-content:center;font-size:16px;color:#e8e0d0;font-family:Helvetica;">SM</div>
+                <span style="font-size:11px;color:rgba(232,224,208,0.6);font-family:Helvetica;">Sophie</span>
+              </div>
+              <div style="position:absolute;bottom:6px;left:8px;font-size:10px;color:#fff;background:rgba(0,0,0,0.5);padding:2px 7px;border-radius:4px;font-family:Helvetica;">Sophie Miller</div>
             </div>
           </div>
 
+          <!-- Toolbar -->
           <div class="wb-toolbar">
             <button class="wb-btn active" id="tool-pen" onclick="setTool('pen')" title="Pen">
               <svg viewBox="0 0 24 24"><path d="M12 20h9M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
             </button>
             <button class="wb-btn" id="tool-highlight" onclick="setTool('highlight')" title="Highlighter">
-              <svg viewBox="0 0 24 24"><path d="M9 11l3 3 8-8"/><path d="M20 12v6a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h9"/></svg>
+              <svg viewBox="0 0 24 24"><rect x="3" y="13" width="18" height="6" rx="2"/><path d="M9 13V7l3-3 3 3v6"/></svg>
             </button>
             <button class="wb-btn" id="tool-arrow" onclick="setTool('arrow')" title="Arrow">
               <svg viewBox="0 0 24 24"><line x1="5" y1="19" x2="19" y2="5"/><polyline points="12 5 19 5 19 12"/></svg>
@@ -302,39 +318,34 @@ window.ILM_PAGES = {
             <button class="wb-btn" id="tool-rect" onclick="setTool('rect')" title="Rectangle">
               <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/></svg>
             </button>
-            <button class="wb-btn" id="tool-text" onclick="setTool('text')" title="Text">
-              <svg viewBox="0 0 24 24"><polyline points="4 7 4 4 20 4 20 7"/><line x1="9" y1="20" x2="15" y2="20"/><line x1="12" y1="4" x2="12" y2="20"/></svg>
-            </button>
-            <div class="wb-sep"></div>
             <button class="wb-btn" id="tool-eraser" onclick="setTool('eraser')" title="Eraser">
               <svg viewBox="0 0 24 24"><path d="M20 20H7L3 16l13-13 6 6-2 2"/></svg>
             </button>
-            <button class="wb-btn" onclick="undoCanvas()" title="Undo">
-              <svg viewBox="0 0 24 24"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 .49-4.64"/></svg>
-            </button>
-            <button class="wb-btn" onclick="clearCanvas()" title="Clear">
-              <svg viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14H6L5 6"/></svg>
-            </button>
+            <div class="wb-sep"></div>
+            <button class="wb-btn" onclick="undoCanvas()" title="Undo" style="font-size:11px;color:rgba(232,224,208,0.7);">↩</button>
+            <button class="wb-btn" onclick="clearCanvas()" title="Clear all" style="font-size:11px;color:rgba(232,224,208,0.7);">✕</button>
             <div class="wb-sep"></div>
             <span class="wb-label">Color</span>
-            ${['#1a1410','#8b2a2a','#2a4a8b','#2a6b3a','#f5c842'].map((c,i)=>`
-              <div class="color-dot ${i===0?'selected':''}" style="background:${c}" data-color="${c}" onclick="setColor('${c}',this)"></div>`).join('')}
+            ${['#1a1410','#8b2a2a','#2a4a8b','#2a6b3a','#f5c518','#ffffff'].map((c,i)=>`
+              <div class="color-dot ${i===0?'selected':''}" style="background:${c};${c==='#ffffff'?'border:1px solid rgba(255,255,255,0.4);':''}" data-color="${c}" onclick="setColor('${c}',this)"></div>`).join('')}
             <div class="wb-sep"></div>
             <span class="wb-label">Size</span>
-            <input type="range" min="1" max="24" value="3" style="width:70px;accent-color:#e8e0d0;" oninput="setBrushSize(this.value)">
+            <input type="range" min="1" max="28" value="3" id="brush-size" style="width:70px;accent-color:#e8e0d0;" oninput="setBrushSize(this.value)">
+            <span id="brush-display" style="font-size:11px;color:rgba(232,224,208,0.6);min-width:16px;">3</span>
           </div>
+
           <canvas id="wb-canvas"></canvas>
         </div>
 
         <!-- Sidebar -->
         <div class="classroom-sidebar">
           <div class="cs-tabs">
-            <div class="cs-tab active" onclick="switchCsTab('participants',this)">Participants</div>
+            <div class="cs-tab active" onclick="switchCsTab('participants',this)">People (4)</div>
             <div class="cs-tab" onclick="switchCsTab('chat',this)">Chat</div>
           </div>
           <div class="cs-panel active" id="panel-participants">
             ${[
-              {i:'SA',name:'Sara A. (You)',role:'Teacher',mic:true,cam:true},
+              {i:'SA',name:'Sara A.',role:'Teacher · You',mic:true,cam:true},
               {i:'ET',name:'Emma Thompson',role:'Student',mic:true,cam:false},
               {i:'LB',name:'Lucas Bennett',role:'Student',mic:false,cam:false},
               {i:'SM',name:'Sophie Miller',role:'Student',mic:true,cam:true},
@@ -343,19 +354,23 @@ window.ILM_PAGES = {
                 <div class="p-avatar">${p.i}</div>
                 <div style="flex:1"><div class="p-name">${p.name}</div><div class="p-role">${p.role}</div></div>
                 <div class="p-icons">
-                  <div class="p-icon ${p.mic?'on':''}"><svg viewBox="0 0 24 24"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/></svg></div>
-                  <div class="p-icon ${p.cam?'on':''}"><svg viewBox="0 0 24 24"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg></div>
+                  <div class="p-icon ${p.mic?'on':''}" title="${p.mic?'Mic on':'Mic off'}">
+                    <svg viewBox="0 0 24 24"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/></svg>
+                  </div>
+                  <div class="p-icon ${p.cam?'on':''}" title="${p.cam?'Camera on':'Camera off'}">
+                    <svg viewBox="0 0 24 24"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg>
+                  </div>
                 </div>
               </div>`).join('')}
           </div>
-          <div class="cs-panel" id="panel-chat" style="flex-direction:column;gap:0;">
-            <div class="chat-messages" id="chat-messages">
+          <div class="cs-panel" id="panel-chat" style="flex-direction:column;gap:0;padding:0;">
+            <div class="chat-messages" id="chat-messages" style="padding:12px;flex:1;">
               <div class="chat-msg"><div class="chat-sender">Emma Thompson</div><div class="chat-text">Can we review the diagram on slide 3?</div></div>
-              <div class="chat-msg"><div class="chat-sender">Sara A.</div><div class="chat-text">Sure, let me pull it up now.</div></div>
+              <div class="chat-msg"><div class="chat-sender">Sara A.</div><div class="chat-text">Sure, pulling it up now.</div></div>
               <div class="chat-msg"><div class="chat-sender">Sophie Miller</div><div class="chat-text">I have a question about DNA replication</div></div>
             </div>
             <div class="chat-input-row">
-              <input class="chat-input" id="chat-input" type="text" placeholder="Type a message…">
+              <input class="chat-input" id="chat-input" type="text" placeholder="Message…">
               <button class="chat-send" onclick="sendChat()">Send</button>
             </div>
           </div>
@@ -368,25 +383,30 @@ window.ILM_PAGES = {
               <div class="vt-avatar">${v.i}</div>
               <div class="vt-name">${v.name}</div>
             </div>`).join('')}
+          <div style="flex:1;"></div>
         </div>
 
         <!-- Controls -->
         <div class="classroom-controls">
-          <div class="ctrl-btn active" id="ctrl-mic" onclick="toggleCtrl(this)" title="Mic">
-            <svg viewBox="0 0 24 24"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg>
-            <span class="ctrl-label">Mic</span>
+          <div class="ctrl-btn active" id="ctrl-mic" onclick="toggleMic(this)" title="Toggle mic">
+            <svg viewBox="0 0 24 24" id="mic-icon"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg>
+            <span class="ctrl-label" id="mic-label">Mic On</span>
           </div>
-          <div class="ctrl-btn active" id="ctrl-cam" onclick="toggleCtrl(this);toggleCamera(this)" title="Camera">
+          <div class="ctrl-btn active" id="ctrl-cam" onclick="toggleCam(this)" title="Toggle camera">
             <svg viewBox="0 0 24 24"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg>
-            <span class="ctrl-label">Camera</span>
+            <span class="ctrl-label" id="cam-label">Cam On</span>
           </div>
-          <div class="ctrl-btn" onclick="toggleCtrl(this)" title="Share screen">
+          <div class="ctrl-btn" id="ctrl-screen" onclick="startScreenShare(this)" title="Share screen">
             <svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
             <span class="ctrl-label">Share</span>
           </div>
-          <div class="ctrl-btn" onclick="toggleCtrl(this)" title="Raise hand">
+          <div class="ctrl-btn" id="ctrl-hand" onclick="raiseHand(this)" title="Raise hand">
             <svg viewBox="0 0 24 24"><path d="M18 11V6a2 2 0 0 0-4 0v5M14 10V4a2 2 0 0 0-4 0v6M10 10.5V6a2 2 0 0 0-4 0v8l-1-1a2 2 0 0 0-3 3l4 4a6 6 0 0 0 12 0v-2a2 2 0 0 0-4 0"/></svg>
-            <span class="ctrl-label">Hand</span>
+            <span class="ctrl-label" id="hand-label">Raise Hand</span>
+          </div>
+          <div class="ctrl-btn" onclick="toggleFullscreen()" title="Fullscreen">
+            <svg viewBox="0 0 24 24"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/></svg>
+            <span class="ctrl-label">Fullscreen</span>
           </div>
           <div class="ctrl-btn danger" onclick="ILM.navigate('sessions')">
             <svg viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
@@ -398,169 +418,257 @@ window.ILM_PAGES = {
 
       <script>
       (function() {
+        // ── Canvas ──
         const canvas = document.getElementById('wb-canvas');
         if (!canvas) return;
         const ctx = canvas.getContext('2d');
-        let tool='pen', color='#1a1410', size=3, drawing=false, history=[], startX, startY;
+        let tool='pen', color='#1a1410', size=3, drawing=false, history=[], startX=0, startY=0;
+        let micOn=true, camOn=true, handRaised=false;
+        let mediaStream=null, screenStream=null;
 
         function resize() {
           const saved = ctx.getImageData(0,0,canvas.width,canvas.height);
+          const toolbar = document.querySelector('.wb-toolbar');
           canvas.width  = canvas.parentElement.clientWidth;
-          canvas.height = canvas.parentElement.clientHeight - document.querySelector('.wb-toolbar').offsetHeight;
+          canvas.height = canvas.parentElement.clientHeight - (toolbar ? toolbar.offsetHeight : 44);
           ctx.putImageData(saved,0,0);
         }
         resize();
         window.addEventListener('resize', resize);
 
-        function pos(e) {
+        function getPos(e) {
           const r = canvas.getBoundingClientRect();
-          const s = e.touches ? e.touches[0] : e;
-          return {x: s.clientX-r.left, y: s.clientY-r.top};
+          const src = e.touches ? e.touches[0] : e;
+          return { x: src.clientX - r.left, y: src.clientY - r.top };
         }
-        function save() { history.push(ctx.getImageData(0,0,canvas.width,canvas.height)); if(history.length>40) history.shift(); }
+        function saveHistory() {
+          history.push(ctx.getImageData(0,0,canvas.width,canvas.height));
+          if (history.length > 50) history.shift();
+        }
 
         canvas.addEventListener('mousedown', e => {
-          drawing=true; save();
-          const p=pos(e); startX=p.x; startY=p.y;
-          if(['pen','eraser','highlight'].includes(tool)){ctx.beginPath();ctx.moveTo(p.x,p.y);}
+          drawing = true; saveHistory();
+          const p = getPos(e); startX = p.x; startY = p.y;
+          if (['pen','eraser','highlight'].includes(tool)) { ctx.beginPath(); ctx.moveTo(p.x, p.y); }
         });
+
         canvas.addEventListener('mousemove', e => {
-          if(!drawing) return;
-          const p=pos(e);
-          if(tool==='pen'){
-            ctx.globalCompositeOperation='source-over';ctx.globalAlpha=1;
-            ctx.strokeStyle=color;ctx.lineWidth=size;ctx.lineCap='round';ctx.lineJoin='round';
-            ctx.lineTo(p.x,p.y);ctx.stroke();
-          } else if(tool==='eraser'){
-            ctx.globalCompositeOperation='destination-out';ctx.lineWidth=size*4;ctx.lineCap='round';
-            ctx.lineTo(p.x,p.y);ctx.stroke();ctx.globalCompositeOperation='source-over';
-          } else if(tool==='highlight'){
-            ctx.globalCompositeOperation='source-over';ctx.globalAlpha=0.3;
-            ctx.strokeStyle='#f5c842';ctx.lineWidth=size*5;ctx.lineCap='square';
-            ctx.lineTo(p.x,p.y);ctx.stroke();ctx.globalAlpha=1;
+          if (!drawing) return;
+          const p = getPos(e);
+          ctx.globalCompositeOperation = tool === 'eraser' ? 'destination-out' : 'source-over';
+          if (tool === 'pen') {
+            ctx.globalAlpha = 1; ctx.strokeStyle = color; ctx.lineWidth = size; ctx.lineCap = 'round'; ctx.lineJoin = 'round';
+            ctx.lineTo(p.x, p.y); ctx.stroke();
+          } else if (tool === 'eraser') {
+            ctx.lineWidth = size * 5; ctx.lineCap = 'round';
+            ctx.lineTo(p.x, p.y); ctx.stroke();
+          } else if (tool === 'highlight') {
+            ctx.globalCompositeOperation = 'source-over';
+            ctx.globalAlpha = 0.28; ctx.strokeStyle = '#f5c518'; ctx.lineWidth = size * 6; ctx.lineCap = 'square';
+            ctx.lineTo(p.x, p.y); ctx.stroke(); ctx.globalAlpha = 1;
           }
+          ctx.globalCompositeOperation = 'source-over';
         });
+
         canvas.addEventListener('mouseup', e => {
-          if(!drawing) return; drawing=false;
-          const p=pos(e);
-          if(tool==='rect'){
-            ctx.globalCompositeOperation='source-over';ctx.globalAlpha=1;
-            ctx.strokeStyle=color;ctx.lineWidth=size;
-            ctx.strokeRect(startX,startY,p.x-startX,p.y-startY);
-          } else if(tool==='arrow'){
-            ctx.globalCompositeOperation='source-over';ctx.globalAlpha=1;
-            ctx.strokeStyle=color;ctx.lineWidth=size;
-            ctx.beginPath();ctx.moveTo(startX,startY);ctx.lineTo(p.x,p.y);ctx.stroke();
-            const ang=Math.atan2(p.y-startY,p.x-startX);
-            ctx.beginPath();ctx.moveTo(p.x,p.y);
-            ctx.lineTo(p.x-12*Math.cos(ang-0.4),p.y-12*Math.sin(ang-0.4));
-            ctx.lineTo(p.x-12*Math.cos(ang+0.4),p.y-12*Math.sin(ang+0.4));
-            ctx.closePath();ctx.fillStyle=color;ctx.fill();
+          if (!drawing) return; drawing = false;
+          const p = getPos(e);
+          ctx.globalAlpha = 1; ctx.globalCompositeOperation = 'source-over';
+          ctx.strokeStyle = color; ctx.lineWidth = size;
+          if (tool === 'rect') {
+            ctx.strokeRect(startX, startY, p.x - startX, p.y - startY);
+          } else if (tool === 'arrow') {
+            ctx.beginPath(); ctx.moveTo(startX, startY); ctx.lineTo(p.x, p.y); ctx.stroke();
+            const ang = Math.atan2(p.y - startY, p.x - startX);
+            const hs = Math.max(size * 4, 12);
+            ctx.beginPath();
+            ctx.moveTo(p.x, p.y);
+            ctx.lineTo(p.x - hs * Math.cos(ang - 0.4), p.y - hs * Math.sin(ang - 0.4));
+            ctx.lineTo(p.x - hs * Math.cos(ang + 0.4), p.y - hs * Math.sin(ang + 0.4));
+            ctx.closePath(); ctx.fillStyle = color; ctx.fill();
           }
         });
-        canvas.addEventListener('mouseleave',()=>{drawing=false;});
-        canvas.addEventListener('touchstart',e=>{e.preventDefault();canvas.dispatchEvent(new MouseEvent('mousedown',{clientX:e.touches[0].clientX,clientY:e.touches[0].clientY}));});
-        canvas.addEventListener('touchmove', e=>{e.preventDefault();canvas.dispatchEvent(new MouseEvent('mousemove',{clientX:e.touches[0].clientX,clientY:e.touches[0].clientY}));});
-        canvas.addEventListener('touchend',  e=>{e.preventDefault();canvas.dispatchEvent(new MouseEvent('mouseup',  {clientX:e.changedTouches[0].clientX,clientY:e.changedTouches[0].clientY}));});
 
-        window.setTool  = t=>{tool=t;document.querySelectorAll('.wb-btn[id^=tool]').forEach(b=>b.classList.remove('active'));const b=document.getElementById('tool-'+t);if(b)b.classList.add('active');};
-        window.setColor = (c,el)=>{color=c;document.querySelectorAll('.color-dot').forEach(d=>d.classList.remove('selected'));el.classList.add('selected');};
-        window.setBrushSize=v=>{size=+v;};
-        window.clearCanvas =()=>{save();ctx.clearRect(0,0,canvas.width,canvas.height);};
-        window.undoCanvas  =()=>{if(history.length)ctx.putImageData(history.pop(),0,0);};
+        canvas.addEventListener('mouseleave', () => { drawing = false; ctx.globalCompositeOperation = 'source-over'; ctx.globalAlpha = 1; });
 
-        window.togglePdfOverlay=()=>{
-          const o=document.getElementById('pdf-overlay');
-          if(!o) return;
-          if(o.style.display==='block'){o.style.display='none';return;}
-          o.style.display='block';
-          const img=document.getElementById('pdf-img');
-          const tmp=document.createElement('canvas');tmp.width=600;tmp.height=800;
-          const tc=tmp.getContext('2d');
-          tc.fillStyle='#fff';tc.fillRect(0,0,600,800);
-          tc.strokeStyle='#ddd';tc.lineWidth=1;
-          for(let y=60;y<800;y+=40){tc.beginPath();tc.moveTo(40,y);tc.lineTo(560,y);tc.stroke();}
-          tc.fillStyle='#333';tc.font='bold 20px Helvetica';tc.fillText('Biology — Chapter 4: DNA Replication',40,40);
-          tc.font='15px Helvetica';tc.fillStyle='#555';
-          ['1. The double helix unwinds at the origin of replication.',
+        // Touch
+        ['touchstart','touchmove','touchend'].forEach(ev => {
+          canvas.addEventListener(ev, e => {
+            e.preventDefault();
+            const t = e.touches[0] || e.changedTouches[0];
+            canvas.dispatchEvent(new MouseEvent(ev==='touchstart'?'mousedown':ev==='touchmove'?'mousemove':'mouseup', {clientX:t.clientX,clientY:t.clientY}));
+          }, {passive:false});
+        });
+
+        // Tool functions
+        window.setTool = t => {
+          tool = t;
+          document.querySelectorAll('.wb-btn[id^=tool]').forEach(b => b.classList.remove('active'));
+          const btn = document.getElementById('tool-' + t);
+          if (btn) btn.classList.add('active');
+          canvas.style.cursor = t === 'eraser' ? 'cell' : 'crosshair';
+        };
+        window.setColor = (c, el) => {
+          color = c;
+          document.querySelectorAll('.color-dot').forEach(d => d.classList.remove('selected'));
+          el.classList.add('selected');
+        };
+        window.setBrushSize = v => {
+          size = +v;
+          const d = document.getElementById('brush-display');
+          if (d) d.textContent = v;
+        };
+        window.clearCanvas = () => { saveHistory(); ctx.clearRect(0,0,canvas.width,canvas.height); };
+        window.undoCanvas  = () => { if (history.length) ctx.putImageData(history.pop(),0,0); };
+
+        // PDF overlay
+        window.togglePdfOverlay = () => {
+          const o = document.getElementById('pdf-overlay');
+          if (!o) return;
+          const showing = o.style.display === 'flex' || o.style.display === 'block';
+          if (showing) { o.style.display = 'none'; return; }
+          o.style.display = 'flex';
+          const img = document.getElementById('pdf-img');
+          if (img.src) return;
+          const tmp = document.createElement('canvas'); tmp.width=600; tmp.height=800;
+          const tc = tmp.getContext('2d');
+          tc.fillStyle='#fff'; tc.fillRect(0,0,600,800);
+          tc.strokeStyle='#ddd'; tc.lineWidth=1;
+          for(let y=55;y<800;y+=36){tc.beginPath();tc.moveTo(35,y);tc.lineTo(565,y);tc.stroke();}
+          tc.fillStyle='#222'; tc.font='bold 18px Helvetica'; tc.fillText('Biology — Ch.4: DNA Replication',35,35);
+          tc.font='14px Helvetica'; tc.fillStyle='#444';
+          ['1. The double helix unwinds at the replication fork.',
            '2. Helicase breaks hydrogen bonds between base pairs.',
-           '3. Primase adds RNA primers to initiate synthesis.',
-           '4. DNA polymerase III extends the strand 5\'→3\'.'].forEach((l,i)=>tc.fillText(l,40,100+i*40));
-          img.src=tmp.toDataURL();
+           '3. Primase lays down short RNA primers.',
+           '4. DNA polymerase III extends each strand 5'→3'.',
+           '5. Ligase joins Okazaki fragments on lagging strand.'].forEach((l,i)=>tc.fillText(l,35,75+i*38));
+          img.src = tmp.toDataURL();
         };
 
-        // Video call toggle with real camera
-        window.toggleVideoCall=()=>{
-          const grid=document.getElementById('video-grid');
-          if(!grid) return;
-          if(grid.classList.contains('visible')){
-            grid.classList.remove('visible');
-            const v=document.getElementById('my-video');
-            if(v&&v.srcObject){v.srcObject.getTracks().forEach(t=>t.stop());v.srcObject=null;}
+        // Video call
+        window.toggleVideoCall = () => {
+          const grid = document.getElementById('video-grid');
+          if (!grid) return;
+          if (grid.style.display === 'grid') {
+            grid.style.display = 'none';
+            if (mediaStream) { mediaStream.getTracks().forEach(t=>t.stop()); mediaStream=null; }
+            const v = document.getElementById('my-video');
+            if (v) { v.style.display='none'; v.srcObject=null; }
+            const a = document.getElementById('local-avatar');
+            if (a) a.style.display='flex';
             return;
           }
-          grid.classList.add('visible');
-          // Request real camera
-          navigator.mediaDevices.getUserMedia({video:true,audio:false}).then(stream=>{
-            const localDiv=document.getElementById('local-stream');
-            if(!localDiv) return;
-            let vid=localDiv.querySelector('video');
-            if(!vid){vid=document.createElement('video');vid.id='my-video';vid.autoplay=true;vid.muted=true;vid.playsInline=true;vid.style.cssText='width:100%;height:100%;object-fit:cover;position:absolute;inset:0;';localDiv.prepend(vid);}
-            vid.srcObject=stream;
-            const avatar=localDiv.querySelector('.video-stream-avatar');
-            if(avatar) avatar.style.display='none';
-          }).catch(()=>{ /* camera denied, show avatar fallback */ });
+          grid.style.display = 'grid';
+          navigator.mediaDevices.getUserMedia({video:true, audio:false})
+            .then(stream => {
+              mediaStream = stream;
+              const v = document.getElementById('my-video');
+              const a = document.getElementById('local-avatar');
+              if (v) { v.srcObject = stream; v.style.display = 'block'; }
+              if (a) a.style.display = 'none';
+            })
+            .catch(() => { /* camera denied — avatars show instead */ });
         };
 
-        window.toggleCamera=el=>{
-          const v=document.getElementById('my-video');
-          if(v&&v.srcObject){
-            const track=v.srcObject.getVideoTracks()[0];
-            if(track) track.enabled=!track.enabled;
+        // Mic toggle
+        window.toggleMic = el => {
+          micOn = !micOn;
+          el.classList.toggle('active', micOn);
+          const lbl = document.getElementById('mic-label');
+          if (lbl) lbl.textContent = micOn ? 'Mic On' : 'Mic Off';
+          if (mediaStream) {
+            mediaStream.getAudioTracks().forEach(t => t.enabled = micOn);
           }
         };
 
-        window.toggleCtrl=el=>el.classList.toggle('active');
+        // Camera toggle
+        window.toggleCam = el => {
+          camOn = !camOn;
+          el.classList.toggle('active', camOn);
+          const lbl = document.getElementById('cam-label');
+          if (lbl) lbl.textContent = camOn ? 'Cam On' : 'Cam Off';
+          if (mediaStream) {
+            mediaStream.getVideoTracks().forEach(t => t.enabled = camOn);
+          }
+          const v = document.getElementById('my-video');
+          const a = document.getElementById('local-avatar');
+          if (v) v.style.display = camOn && v.srcObject ? 'block' : 'none';
+          if (a) a.style.display = camOn && v && v.srcObject ? 'none' : 'flex';
+        };
 
-        window.toggleFullscreen=()=>{
-          const wrap=document.getElementById('classroom-wrap');
-          if(!wrap) return;
-          if(!document.fullscreenElement){
-            wrap.requestFullscreen&&wrap.requestFullscreen();
+        // Screen share
+        window.startScreenShare = async el => {
+          if (screenStream) {
+            screenStream.getTracks().forEach(t=>t.stop());
+            screenStream = null;
+            el.classList.remove('active');
+            el.querySelector('.ctrl-label').textContent = 'Share';
+            return;
+          }
+          try {
+            screenStream = await navigator.mediaDevices.getDisplayMedia({video:true});
+            el.classList.add('active');
+            el.querySelector('.ctrl-label').textContent = 'Stop Share';
+            screenStream.getVideoTracks()[0].addEventListener('ended', () => {
+              screenStream = null;
+              el.classList.remove('active');
+              el.querySelector('.ctrl-label').textContent = 'Share';
+            });
+          } catch(e) { /* cancelled */ }
+        };
+
+        // Raise hand
+        window.raiseHand = el => {
+          handRaised = !handRaised;
+          el.classList.toggle('active', handRaised);
+          const lbl = document.getElementById('hand-label');
+          if (lbl) lbl.textContent = handRaised ? 'Hand Raised ✋' : 'Raise Hand';
+        };
+
+        // Fullscreen
+        window.toggleFullscreen = () => {
+          const wrap = document.getElementById('classroom-wrap');
+          if (!wrap) return;
+          if (!document.fullscreenElement) {
+            (wrap.requestFullscreen || wrap.webkitRequestFullscreen).call(wrap);
           } else {
-            document.exitFullscreen&&document.exitFullscreen();
+            (document.exitFullscreen || document.webkitExitFullscreen).call(document);
           }
         };
 
-        window.switchCsTab=(tab,el)=>{
+        // Sidebar tabs
+        window.switchCsTab = (tab, el) => {
           document.querySelectorAll('.cs-tab').forEach(t=>t.classList.remove('active'));
           document.querySelectorAll('.cs-panel').forEach(p=>p.classList.remove('active'));
           el.classList.add('active');
-          const panel=document.getElementById('panel-'+tab);
-          if(panel) panel.classList.add('active');
+          const panel = document.getElementById('panel-'+tab);
+          if (panel) panel.classList.add('active');
         };
 
-        window.sendChat=()=>{
-          const input=document.getElementById('chat-input');
-          if(!input||!input.value.trim()) return;
-          const msgs=document.getElementById('chat-messages');
-          const d=document.createElement('div');d.className='chat-msg';
-          d.innerHTML='<div class="chat-sender">Sara A.</div><div class="chat-text">'+input.value+'</div>';
-          msgs.appendChild(d);msgs.scrollTop=msgs.scrollHeight;input.value='';
+        // Chat
+        window.sendChat = () => {
+          const input = document.getElementById('chat-input');
+          if (!input || !input.value.trim()) return;
+          const msgs = document.getElementById('chat-messages');
+          const d = document.createElement('div'); d.className='chat-msg';
+          d.innerHTML = '<div class="chat-sender">Sara A.</div><div class="chat-text">'+input.value+'</div>';
+          msgs.appendChild(d); msgs.scrollTop=msgs.scrollHeight; input.value='';
         };
-        document.getElementById('chat-input')?.addEventListener('keydown',e=>{if(e.key==='Enter')sendChat();});
+        document.getElementById('chat-input')?.addEventListener('keydown', e=>{if(e.key==='Enter')sendChat();});
 
+        // Timer
         let sec=0;
-        const timer=document.getElementById('session-timer');
-        const iv=setInterval(()=>{
-          if(!document.getElementById('session-timer')){clearInterval(iv);return;}
+        const timerEl = document.getElementById('session-timer');
+        const iv = setInterval(()=>{
+          if (!document.getElementById('session-timer')) { clearInterval(iv); return; }
           sec++;
-          timer.textContent='Session time: '+String(Math.floor(sec/60)).padStart(2,'0')+':'+String(sec%60).padStart(2,'0');
-        },1000);
+          timerEl.textContent = String(Math.floor(sec/60)).padStart(2,'0')+':'+String(sec%60).padStart(2,'0');
+        }, 1000);
 
       })();
       <\/script>`;
   },
+
 
   messages() {
     return `
