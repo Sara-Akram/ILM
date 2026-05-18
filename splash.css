@@ -269,3 +269,40 @@
 .signin-label { color: #3a3028 !important; }
 .signin-tagline { color: #5a5048 !important; }
 .signin-btn { background: #1a1410 !important; color: #f0ebe0 !important; }
+
+#signin-panel {
+  width: min(400px, 88vw) !important;
+  padding: 0 !important;
+}
+
+.signin-box {
+  border-radius: 18px !important;
+  padding: 36px 32px 32px !important;
+  background: rgba(220,215,205,0.82) !important;
+  border: 1px solid rgba(255,255,255,0.4) !important;
+  backdrop-filter: none !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+}
+
+.signin-box {
+  background: rgba(60,58,55,0.82) !important;
+  border: 1px solid rgba(255,255,255,0.15) !important;
+}
+
+.signin-tagline, .signin-label { color: rgba(255,255,255,0.7) !important; }
+.signin-input { background: rgba(255,255,255,0.12) !important; border-color: rgba(255,255,255,0.2) !important; color: #fff !important; }
+.signin-input::placeholder { color: rgba(255,255,255,0.35) !important; }
+.signin-input:focus { background: rgba(255,255,255,0.2) !important; }
+.signin-btn { background: #fff !important; color: #1a1410 !important; }
+
+.signin-box {
+  background: rgba(210,208,204,0.88) !important;
+  border: 1px solid rgba(255,255,255,0.5) !important;
+}
+.signin-tagline { color: #5a5048 !important; }
+.signin-label { color: #6a6058 !important; }
+.signin-input { background: rgba(255,255,255,0.6) !important; border-color: rgba(26,20,16,0.18) !important; color: #1a1410 !important; }
+.signin-input::placeholder { color: rgba(26,20,16,0.35) !important; }
+.signin-input:focus { background: rgba(255,255,255,0.85) !important; }
+.signin-btn { background: #1a1410 !important; color: #f0ebe0 !important; }
