@@ -1,44 +1,46 @@
 /* ============================================================
    ILM — App Controller
-   Role-based login, splash transition, page routing
    ============================================================ */
 
 const ILM = (() => {
 
   let currentRole = 'teacher';
-  let currentPage = 'dashboard';
 
-  const splash      = document.getElementById('splash');
-  const app         = document.getElementById('app');
-  const pageContent = document.getElementById('page-content');
-  const splashLogin = document.getElementById('splash-login');
+  const splash       = document.getElementById('splash');
+  const app          = document.getElementById('app');
+  const pageContent  = document.getElementById('page-content');
+  const signinPanel  = document.getElementById('signin-panel');
 
-  /* ── Show login panel after video ends ── */
-  function showLogin() {
-    splashLogin.classList.add('visible');
-  }
-
-  /* ── Role selected → enter app ── */
-  function selectRole(role) {
+  /* ── Role toggle on sign in screen ── */
+  window.selectRole = (role, el) => {
     currentRole = role;
+    document.querySelectorAll('.role-option').forEach(r => r.classList.remove('selected'));
+    el.classList.add('selected');
+  };
 
-    // Update nav role badge
+  /* ── Sign in → enter app ── */
+  function doSignIn() {
+    const role = currentRole;
+
+    // Update nav badge
     const badge = document.getElementById('nav-role-badge');
     const labels = { teacher: 'Teacher', student: 'Student', admin: 'Admin' };
-    if (badge) badge.textContent = labels[role] || role;
+    if (badge) badge.textContent = labels[role];
 
-    // Update nav tabs based on role
-    const navTabs = document.querySelector('.nav-tabs');
+    // Update nav tabs per role
+    const navTabs = document.getElementById('nav-tabs');
     if (navTabs) {
       if (role === 'student') {
         navTabs.innerHTML = `
           <button class="nav-tab active" data-page="student">Dashboard</button>
           <button class="nav-tab" data-page="sessions">Sessions</button>
+          <button class="nav-tab" data-page="classroom">Classroom</button>
           <button class="nav-tab" data-page="messages">Messages</button>`;
       } else if (role === 'admin') {
         navTabs.innerHTML = `
           <button class="nav-tab active" data-page="admin">Dashboard</button>
           <button class="nav-tab" data-page="students">Users</button>
+          <button class="nav-tab" data-page="sessions">Sessions</button>
           <button class="nav-tab" data-page="settings">Settings</button>`;
       } else {
         navTabs.innerHTML = `
@@ -49,33 +51,40 @@ const ILM = (() => {
       }
     }
 
-    // Transition splash out
+    // Transition out splash
     splash.classList.add('fade-out');
     setTimeout(() => {
       splash.style.display = 'none';
       app.removeAttribute('aria-hidden');
       app.classList.add('visible');
-      const homePage = role === 'student' ? 'student' : role === 'admin' ? 'admin' : 'dashboard';
-      render(homePage);
-      syncNav(homePage);
+
+      const home = role === 'student' ? 'student' : role === 'admin' ? 'admin' : 'dashboard';
+      render(home);
+      syncNav(home);
     }, 900);
+  }
+
+  /* ── Show sign in after video ── */
+  function showSignIn() {
+    if (signinPanel) signinPanel.classList.add('visible');
   }
 
   /* ── Navigate ── */
   function navigate(page) {
-    if (!ILM_PAGES[page]) return;
-    currentPage = page;
+    if (!ILM_PAGES[page]) {
+      console.warn('Page not found:', page);
+      return;
+    }
     render(page);
     syncNav(page);
-    // Scroll to top
     if (pageContent) pageContent.scrollTop = 0;
   }
 
   /* ── Render ── */
   function render(page) {
-    const html = ILM_PAGES[page] ? ILM_PAGES[page]() : '<p style="padding:32px;color:var(--muted)">Page not found.</p>';
-    pageContent.innerHTML = html;
-    // Run inline scripts
+    if (!ILM_PAGES[page]) return;
+    pageContent.innerHTML = ILM_PAGES[page]();
+    // Execute any inline scripts
     pageContent.querySelectorAll('script').forEach(old => {
       const s = document.createElement('script');
       s.textContent = old.textContent;
@@ -83,35 +92,33 @@ const ILM = (() => {
     });
   }
 
-  /* ── Sync nav ── */
+  /* ── Sync active state ── */
   function syncNav(page) {
     document.querySelectorAll('.nav-tab, .sidebar-item').forEach(el => {
       el.classList.toggle('active', el.dataset.page === page);
     });
   }
 
-  /* ── Bind nav clicks ── */
-  function bindNav() {
-    document.addEventListener('click', e => {
-      const btn = e.target.closest('[data-page]');
-      if (!btn || splash.contains(btn)) return;
-      navigate(btn.dataset.page);
-    });
-  }
+  /* ── Global click handler for nav ── */
+  document.addEventListener('click', e => {
+    const btn = e.target.closest('[data-page]');
+    if (!btn) return;
+    if (splash && !splash.classList.contains('fade-out') && splash.style.display !== 'none') return;
+    navigate(btn.dataset.page);
+  });
 
   /* ── Init ── */
-  function init() {
-    bindNav();
-    // Video ends → show login
-    const vid = document.getElementById('splash-video');
-    if (vid) {
-      vid.addEventListener('ended', showLogin);
-      setTimeout(showLogin, 7000); // fallback
-    }
+  const vid = document.getElementById('splash-video');
+  if (vid) {
+    vid.addEventListener('ended', showSignIn);
+    // Fallback: show sign in after 7s even if video doesn't end
+    setTimeout(showSignIn, 7000);
+    // If video fails to load, show sign in immediately
+    vid.addEventListener('error', showSignIn);
+  } else {
+    showSignIn();
   }
 
-  init();
-
-  return { showApp: () => showLogin(), navigate, selectRole };
+  return { doSignIn, navigate, selectRole: window.selectRole };
 
 })();

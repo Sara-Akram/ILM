@@ -11,54 +11,63 @@
 </head>
 <body>
 
-  <!-- SPLASH -->
+  <!-- SPLASH + SIGN IN -->
   <div id="splash">
     <video id="splash-video" autoplay muted playsinline>
       <source src="splash.mp4" type="video/mp4" />
     </video>
     <div id="splash-overlay"></div>
 
-    <!-- Login panel — appears after video -->
-    <div id="splash-login">
-      <h2>Welcome to ILM</h2>
-      <p>Who are you signing in as?</p>
-      <div class="role-cards">
+    <!-- Sign in form - shown after video -->
+    <div id="signin-panel">
+      <div class="signin-box">
+        <div class="signin-logo">ILM</div>
+        <div class="signin-tagline">Sign in to continue</div>
 
-        <div class="role-card" onclick="ILM.selectRole('teacher')">
-          <div class="role-icon">
-            <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="13" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+        <label class="signin-label">Email address</label>
+        <input class="signin-input" type="email" id="signin-email" placeholder="you@example.com" />
+
+        <label class="signin-label">Password</label>
+        <input class="signin-input" type="password" id="signin-password" placeholder="••••••••" />
+
+        <label class="signin-label">I am a</label>
+        <div class="role-selector">
+          <div class="role-option selected" data-role="teacher" onclick="selectRole('teacher', this)">
+            <div class="role-opt-icon">
+              <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="13" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+            </div>
+            <div class="role-opt-label">Teacher</div>
+            <div class="role-opt-sub">Tutor</div>
           </div>
-          <div class="role-label">Teacher</div>
-          <div class="role-sub">Manage sessions,<br>students & earnings</div>
+          <div class="role-option" data-role="student" onclick="selectRole('student', this)">
+            <div class="role-opt-icon">
+              <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+            </div>
+            <div class="role-opt-label">Student</div>
+            <div class="role-opt-sub">Learner</div>
+          </div>
+          <div class="role-option" data-role="admin" onclick="selectRole('admin', this)">
+            <div class="role-opt-icon">
+              <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/><path d="M19 11l2 2 4-4"/></svg>
+            </div>
+            <div class="role-opt-label">Admin</div>
+            <div class="role-opt-sub">Manager</div>
+          </div>
         </div>
 
-        <div class="role-card" onclick="ILM.selectRole('student')">
-          <div class="role-icon">
-            <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
-          </div>
-          <div class="role-label">Student</div>
-          <div class="role-sub">Join sessions &<br>track progress</div>
-        </div>
-
-        <div class="role-card" onclick="ILM.selectRole('admin')">
-          <div class="role-icon">
-            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
-          </div>
-          <div class="role-label">Administrator</div>
-          <div class="role-sub">Platform management<br>& oversight</div>
-        </div>
-
+        <button class="signin-btn" onclick="ILM.doSignIn()">Sign in</button>
+        <div class="signin-divider">Don't have an account? <a onclick="ILM.doSignIn()">Sign up</a></div>
       </div>
     </div>
 
-    <button class="skip-btn" onclick="ILM.showApp()">Skip intro</button>
+    <button class="skip-btn" onclick="ILM.doSignIn()">Skip intro</button>
   </div>
 
   <!-- APP -->
   <div id="app" aria-hidden="true">
     <header id="main-nav">
       <div class="logo">ILM</div>
-      <nav class="nav-tabs" role="navigation" aria-label="Main">
+      <nav class="nav-tabs" id="nav-tabs" role="navigation">
         <button class="nav-tab active" data-page="dashboard">Dashboard</button>
         <button class="nav-tab" data-page="sessions">Sessions</button>
         <button class="nav-tab" data-page="students">Students</button>
@@ -66,14 +75,14 @@
       </nav>
       <div class="nav-user">
         <span id="nav-role-badge" class="nav-role-badge">Teacher</span>
-        <span class="nav-username">Sara A.</span>
-        <div class="avatar">SA</div>
+        <span class="nav-username" id="nav-name">Sara A.</span>
+        <div class="avatar" id="nav-avatar">SA</div>
       </div>
     </header>
 
     <div class="app-body">
-      <aside class="sidebar">
-        <nav>
+      <aside class="sidebar" id="sidebar">
+        <nav id="sidebar-nav">
           <button class="sidebar-item active" data-page="dashboard">
             <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
             Overview
