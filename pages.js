@@ -46,10 +46,10 @@ window.ILM_PAGES = {
             <span class="card-action" onclick="ILM.navigate('sessions')">View full schedule →</span>
           </div>
           ${[
-            { av: 'av-green',  init: 'A', name: 'Aisha Rahman',   sub: 'Biology · Grade 10',  badge: 'badge-live',     btext: '● Live',    time: '2:00 – 3:00 PM'  },
-            { av: 'av-amber',  init: 'O', name: 'Omar Siddiqui',  sub: 'Chemistry · Grade 11', badge: 'badge-upcoming', btext: 'Upcoming',  time: '4:00 – 5:00 PM'  },
-            { av: 'av-rose',   init: 'Z', name: 'Zara Khan',      sub: 'Math · Grade 8',       badge: 'badge-done',     btext: 'Done',      time: '10:00 – 11:00 AM' },
-            { av: 'av-blue',   init: 'Y', name: 'Yusuf Ali',      sub: 'English · Grade 6',    badge: 'badge-upcoming', btext: 'Upcoming',  time: '6:00 – 7:00 PM'  },
+            { av: 'av-green',  init: 'E', name: 'Emma Thompson',   sub: 'Biology · Grade 10',  badge: 'badge-live',     btext: '● Live',    time: '2:00 – 3:00 PM'  },
+            { av: 'av-amber',  init: 'L', name: 'Lucas Bennett',  sub: 'Chemistry · Grade 11', badge: 'badge-upcoming', btext: 'Upcoming',  time: '4:00 – 5:00 PM'  },
+            { av: 'av-rose',   init: 'S', name: 'Sophie Miller',      sub: 'Math · Grade 8',       badge: 'badge-done',     btext: 'Done',      time: '10:00 – 11:00 AM' },
+            { av: 'av-blue',   init: 'J', name: 'Jake Harrison',      sub: 'English · Grade 6',    badge: 'badge-upcoming', btext: 'Upcoming',  time: '6:00 – 7:00 PM'  },
           ].map(s => `
             <div class="session-row">
               <div class="s-avatar ${s.av}">${s.init}</div>
@@ -85,12 +85,12 @@ window.ILM_PAGES = {
   /* ── SESSIONS ── */
   sessions() {
     const sessions = [
-      { av: 'av-green',  init: 'A', name: 'Aisha Rahman',   sub: 'Biology · Grade 10',   badge: 'badge-live',     btext: '● Live',    time: 'Today · 2:00 – 3:00 PM',   dur: '60 min' },
-      { av: 'av-amber',  init: 'O', name: 'Omar Siddiqui',  sub: 'Chemistry · Grade 11',  badge: 'badge-upcoming', btext: 'Upcoming',  time: 'Today · 4:00 – 5:00 PM',   dur: '60 min' },
-      { av: 'av-blue',   init: 'Y', name: 'Yusuf Ali',      sub: 'English · Grade 6',     badge: 'badge-upcoming', btext: 'Upcoming',  time: 'Today · 6:00 – 7:00 PM',   dur: '60 min' },
-      { av: 'av-rose',   init: 'Z', name: 'Zara Khan',      sub: 'Math · Grade 8',        badge: 'badge-done',     btext: 'Done',      time: 'Today · 10:00 – 11:00 AM', dur: '55 min' },
-      { av: 'av-purple', init: 'F', name: 'Fatima Malik',   sub: 'Physics · Grade 12',    badge: 'badge-done',     btext: 'Done',      time: 'Yesterday · 3:00 PM',       dur: '65 min' },
-      { av: 'av-green',  init: 'A', name: 'Aisha Rahman',   sub: 'Biology · Grade 10',    badge: 'badge-done',     btext: 'Done',      time: 'Yesterday · 2:00 PM',       dur: '60 min' },
+      { av: 'av-green',  init: 'E', name: 'Emma Thompson',   sub: 'Biology · Grade 10',   badge: 'badge-live',     btext: '● Live',    time: 'Today · 2:00 – 3:00 PM',   dur: '60 min' },
+      { av: 'av-amber',  init: 'L', name: 'Lucas Bennett',  sub: 'Chemistry · Grade 11',  badge: 'badge-upcoming', btext: 'Upcoming',  time: 'Today · 4:00 – 5:00 PM',   dur: '60 min' },
+      { av: 'av-blue',   init: 'J', name: 'Jake Harrison',      sub: 'English · Grade 6',     badge: 'badge-upcoming', btext: 'Upcoming',  time: 'Today · 6:00 – 7:00 PM',   dur: '60 min' },
+      { av: 'av-rose',   init: 'S', name: 'Sophie Miller',      sub: 'Math · Grade 8',        badge: 'badge-done',     btext: 'Done',      time: 'Today · 10:00 – 11:00 AM', dur: '55 min' },
+      { av: 'av-purple', init: 'O', name: 'Olivia Carter',   sub: 'Physics · Grade 12',    badge: 'badge-done',     btext: 'Done',      time: 'Yesterday · 3:00 PM',       dur: '65 min' },
+      { av: 'av-green',  init: 'E', name: 'Emma Thompson',   sub: 'Biology · Grade 10',    badge: 'badge-done',     btext: 'Done',      time: 'Yesterday · 2:00 PM',       dur: '60 min' },
     ];
     return `
       <div class="page-header">
@@ -129,13 +129,13 @@ window.ILM_PAGES = {
   /* ── STUDENTS ── */
   students() {
     const students = [
-      { av: 'av-green',  init: 'A', name: 'Aisha Rahman',  grade: 'Grade 10', subject: 'Biology',   sessions: 12, progress: 82, status: 'Active'   },
-      { av: 'av-amber',  init: 'O', name: 'Omar Siddiqui', grade: 'Grade 11', subject: 'Chemistry', sessions: 8,  progress: 67, status: 'Active'   },
-      { av: 'av-rose',   init: 'Z', name: 'Zara Khan',     grade: 'Grade 8',  subject: 'Math',      sessions: 15, progress: 91, status: 'Active'   },
-      { av: 'av-blue',   init: 'Y', name: 'Yusuf Ali',     grade: 'Grade 6',  subject: 'English',   sessions: 6,  progress: 55, status: 'Active'   },
-      { av: 'av-purple', init: 'F', name: 'Fatima Malik',  grade: 'Grade 12', subject: 'Physics',   sessions: 20, progress: 95, status: 'Active'   },
-      { av: 'av-amber',  init: 'H', name: 'Hassan Raza',   grade: 'Grade 9',  subject: 'Math',      sessions: 3,  progress: 40, status: 'New'      },
-      { av: 'av-rose',   init: 'N', name: 'Nadia Sheikh',  grade: 'Grade 7',  subject: 'English',   sessions: 9,  progress: 73, status: 'On leave' },
+      { av: 'av-green',  init: 'E', name: 'Emma Thompson',  grade: 'Grade 10', subject: 'Biology',   sessions: 12, progress: 82, status: 'Active'   },
+      { av: 'av-amber',  init: 'L', name: 'Lucas Bennett', grade: 'Grade 11', subject: 'Chemistry', sessions: 8,  progress: 67, status: 'Active'   },
+      { av: 'av-rose',   init: 'S', name: 'Sophie Miller',     grade: 'Grade 8',  subject: 'Math',      sessions: 15, progress: 91, status: 'Active'   },
+      { av: 'av-blue',   init: 'J', name: 'Jake Harrison',     grade: 'Grade 6',  subject: 'English',   sessions: 6,  progress: 55, status: 'Active'   },
+      { av: 'av-purple', init: 'O', name: 'Olivia Carter',  grade: 'Grade 12', subject: 'Physics',   sessions: 20, progress: 95, status: 'Active'   },
+      { av: 'av-amber',  init: 'N', name: 'Noah Williams',   grade: 'Grade 9',  subject: 'Math',      sessions: 3,  progress: 40, status: 'New'      },
+      { av: 'av-rose',   init: 'C', name: 'Chloe Davis',  grade: 'Grade 7',  subject: 'English',   sessions: 9,  progress: 73, status: 'On leave' },
     ];
     return `
       <div class="page-header">
@@ -371,10 +371,10 @@ window.ILM_PAGES = {
       <div class="two-col" style="align-items:start;">
         <div class="card">
           ${[
-            { av: 'av-green',  init: 'A', name: 'Aisha Rahman',  preview: 'Can we review chapter 4 today?', time: '2:14 PM', unread: true  },
-            { av: 'av-amber',  init: 'O', name: 'Omar Siddiqui', preview: 'Thanks for the notes!',          time: '1:05 PM', unread: false },
-            { av: 'av-blue',   init: 'Y', name: 'Yusuf Ali',     preview: "I'll be 5 minutes late",        time: '12:50 PM',unread: false },
-            { av: 'av-rose',   init: 'Z', name: 'Zara Khan',     preview: 'Great session today 😊',        time: 'Yesterday',unread: false },
+            { av: 'av-green',  init: 'E', name: 'Emma Thompson',  preview: 'Can we review chapter 4 today?', time: '2:14 PM', unread: true  },
+            { av: 'av-amber',  init: 'L', name: 'Lucas Bennett', preview: 'Thanks for the notes!',          time: '1:05 PM', unread: false },
+            { av: 'av-blue',   init: 'J', name: 'Jake Harrison',     preview: "I'll be 5 minutes late",        time: '12:50 PM',unread: false },
+            { av: 'av-rose',   init: 'S', name: 'Sophie Miller',     preview: 'Great session today 😊',        time: 'Yesterday',unread: false },
           ].map(m => `
             <div class="session-row" style="cursor:pointer;">
               <div class="s-avatar ${m.av}">${m.init}</div>
@@ -389,7 +389,7 @@ window.ILM_PAGES = {
             </div>`).join('')}
         </div>
         <div class="card">
-          <div class="card-header"><span class="card-title">Aisha Rahman</span><span class="badge badge-live">● Live session</span></div>
+          <div class="card-header"><span class="card-title">Emma Thompson</span><span class="badge badge-live">● Live session</span></div>
           <div style="padding:20px;min-height:300px;display:flex;flex-direction:column;gap:12px;">
             <div style="background:var(--bg-main);border-radius:12px 12px 12px 4px;padding:10px 14px;font-size:13px;max-width:80%;">Can we review chapter 4 today?</div>
             <div style="background:var(--sage);color:#fff;border-radius:12px 12px 4px 12px;padding:10px 14px;font-size:13px;max-width:80%;align-self:flex-end;">Of course! Let's start with DNA replication.</div>

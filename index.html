@@ -11,48 +11,31 @@
 </head>
 <body>
 
-  <!-- ░░░ SPLASH SCREEN ░░░ -->
   <div id="splash">
     <div id="splash-inner">
-
       <svg id="ilm-svg" viewBox="0 0 520 180" xmlns="http://www.w3.org/2000/svg" aria-label="ILM">
-
-        <!-- ruled paper lines -->
         <line class="paper-line" x1="20" y1="42"  x2="498" y2="38"  stroke-width="0.8"/>
         <line class="paper-line" x1="18" y1="90"  x2="502" y2="88"  stroke-width="0.6"/>
         <line class="paper-line" x1="22" y1="138" x2="500" y2="135" stroke-width="0.7"/>
         <line class="paper-line" x1="20" y1="170" x2="499" y2="168" stroke-width="0.5"/>
-
-        <!-- ── I ── vertical + serifs -->
         <line id="s-I"   class="charcoal" x1="68" y1="28" x2="68" y2="152" />
         <line id="s-It"  class="charcoal serif-stroke" x1="42" y1="28"  x2="94" y2="28"  />
         <line id="s-Ib"  class="charcoal serif-stroke" x1="42" y1="152" x2="94" y2="152" />
         <ellipse class="smudge smudge-1" cx="68"  cy="152" rx="22" ry="5" />
-
-        <!-- ── L ── vertical + base -->
         <line id="s-Lv"  class="charcoal" x1="160" y1="28"  x2="160" y2="152" />
         <line id="s-Lh"  class="charcoal" x1="160" y1="152" x2="260" y2="152" />
         <ellipse class="smudge smudge-2" cx="160" cy="152" rx="16" ry="6"  />
-
-        <!-- ── M ── left post, left diagonal, right diagonal, right post -->
         <line id="s-Ml"  class="charcoal" x1="310" y1="28"  x2="310" y2="152" />
         <line id="s-Mld" class="charcoal" x1="310" y1="28"  x2="374" y2="104" />
         <line id="s-Mrd" class="charcoal" x1="374" y1="104" x2="438" y2="28"  />
         <line id="s-Mr"  class="charcoal" x1="438" y1="28"  x2="438" y2="152" />
         <ellipse class="smudge smudge-3" cx="374" cy="106" rx="10" ry="4"  />
-
       </svg>
-
-      <p class="splash-meaning">علم &nbsp;·&nbsp; knowledge &nbsp;·&nbsp; education</p>
     </div>
-
     <button class="skip-btn" onclick="ILM.showApp()">Skip intro</button>
   </div>
 
-  <!-- ░░░ APP SHELL ░░░ -->
   <div id="app" aria-hidden="true">
-
-    <!-- NAV -->
     <header id="main-nav">
       <div class="logo">IL<span>M</span></div>
       <nav class="nav-tabs" role="navigation" aria-label="Main">
@@ -67,9 +50,7 @@
       </div>
     </header>
 
-    <!-- BODY: sidebar + content -->
     <div class="app-body">
-
       <aside class="sidebar" aria-label="Sidebar">
         <nav>
           <button class="sidebar-item active" data-page="dashboard">
@@ -104,10 +85,7 @@
           </button>
         </nav>
       </aside>
-
-      <!-- PAGE CONTENT inserted by JS -->
       <main id="page-content" class="main-content" role="main"></main>
-
     </div>
   </div>
 
