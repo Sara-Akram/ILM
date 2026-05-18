@@ -52,8 +52,8 @@
 }
 
 .signin-box {
-  background: rgba(180,180,180,0.45);
-  border: 1px solid rgba(255,255,255,0.25);
+  background: rgba(100,100,100,0.35);
+  border: 1px solid rgba(255,255,255,0.3);
   border-radius: 18px;
   padding: 36px 36px 32px;
   backdrop-filter: blur(16px);
@@ -61,10 +61,11 @@
 }
 
 .signin-logo {
+  color: #fff !important;
   font-family: 'Playfair Display', serif;
   font-size: 32px;
   font-weight: 900;
-  color: #1a1410;
+  color: #fff;
   text-align: center;
   margin-bottom: 6px;
   letter-spacing: -0.5px;
@@ -92,7 +93,7 @@
   font-family: 'DM Sans', sans-serif;
   font-size: 14px;
   color: #1a1410;
-  background: rgba(255,255,255,0.7);
+  background: rgba(255,255,255,0.25);
   border: 1px solid rgba(26,20,16,0.16);
   border-radius: 8px;
   padding: 11px 14px;
@@ -102,7 +103,7 @@
 }
 .signin-input:focus {
   border-color: #1a1410;
-  background: rgba(255,255,255,0.95);
+  background: rgba(255,255,255,0.45);
 }
 
 /* Role selector */
@@ -220,3 +221,41 @@
 .skip-btn:hover { background: rgba(210,200,185,0.95); }
 
 @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+/* FORCE grey transparent box */
+.signin-box {
+  background: rgba(80,80,80,0.38) !important;
+  border: 1px solid rgba(255,255,255,0.22) !important;
+  backdrop-filter: blur(18px) !important;
+  -webkit-backdrop-filter: blur(18px) !important;
+}
+
+.signin-logo,
+.signin-tagline { color: #fff !important; }
+
+.signin-label { color: rgba(255,255,255,0.75) !important; }
+
+.signin-input {
+  background: rgba(255,255,255,0.18) !important;
+  border-color: rgba(255,255,255,0.25) !important;
+  color: #fff !important;
+}
+.signin-input::placeholder { color: rgba(255,255,255,0.45) !important; }
+.signin-input:focus { background: rgba(255,255,255,0.28) !important; border-color: rgba(255,255,255,0.5) !important; }
+
+.role-option {
+  background: rgba(255,255,255,0.12) !important;
+  border-color: rgba(255,255,255,0.2) !important;
+}
+.role-option:hover { background: rgba(255,255,255,0.22) !important; }
+.role-opt-label { color: #fff !important; }
+.role-opt-sub   { color: rgba(255,255,255,0.6) !important; }
+.role-opt-icon svg { stroke: #fff !important; }
+
+.role-option.selected {
+  background: rgba(255,255,255,0.9) !important;
+  border-color: #fff !important;
+}
+.role-option.selected .role-opt-icon svg { stroke: #1a1410 !important; }
+.role-option.selected .role-opt-label { color: #1a1410 !important; }
+.role-option.selected .role-opt-sub   { color: #5a5048 !important; }
